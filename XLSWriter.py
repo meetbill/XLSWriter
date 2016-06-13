@@ -9,7 +9,7 @@
 # Description:
 
 """
-import lib.xlwt
+import mylib.xlwt
 
 class XLSWriter(object):
     """A XLS writer that produces XLS files from unicode data.
