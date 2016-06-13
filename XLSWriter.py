@@ -29,6 +29,14 @@ class XLSWriter(object):
                                                        x,y,0,0,scale_x=0.1,\
                                                        scale_y=0.1)
         self.sheets[sheet_name]['rows'] += 1
+    def add_header(self,header_name,length,sheet_name='sheet'):
+        if sheet_name not in self.sheets:
+            # Create if does not exist
+            self.create_sheet(sheet_name)
+        self.sheets[sheet_name]['sheet'].write_merge(self.sheets[sheet_name]['rows'],self.sheets[sheet_name]['rows'],\
+                                                    0,length-1,\
+                                                    header_name)
+        self.sheets[sheet_name]['rows'] += 1
     def create_sheet(self, sheet_name='sheet'):
         """Create new sheet
         """
@@ -99,6 +107,8 @@ if __name__ == '__main__':
     # test
     xlswriter = XLSWriter('ceshi.xls')
     xlswriter.add_image("python.bmg",0,0,sheet_name=u"基本信息")
+    xlswriter.add_header(u"信息登记表",4,sheet_name=u"基本信息")
+
     xlswriter.writerow(['姓名', '年龄', '电话', 'QQ'],sheet_name=u'基本信息',border=True)
     xlswriter.writerow(['张三', '30', '12345678910', '123456789'], sheet_name=u'基本信息',border=True)
     xlswriter.writerow(['王五', '30', '13512345678', '123456789'], sheet_name=u'基本信息',border=True)
