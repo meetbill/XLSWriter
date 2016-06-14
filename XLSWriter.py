@@ -9,7 +9,7 @@
 # Description:
 
 """
-import mylib.xlwt
+import mylib.xlwt as xlwt
 
 class XLSWriter(object):
     """A XLS writer that produces XLS files from unicode data.
@@ -18,7 +18,7 @@ class XLSWriter(object):
         # must specify the encoding of the input data, utf-8 default.
         self.file = file
         self.encoding = encoding
-        self.wbk = mylib.xlwt.Workbook()
+        self.wbk = xlwt.Workbook()
         self.sheets = {}
         
     def add_image(self,bmp_name='',x='',y='',sheet_name='sheet'):
@@ -33,9 +33,20 @@ class XLSWriter(object):
         if sheet_name not in self.sheets:
             # Create if does not exist
             self.create_sheet(sheet_name)
+        style = xlwt.XFStyle() # Create Style
+        font = xlwt.Font()
+        font.bold = True
+        font.height = 0x00FB
+        style.font = font
+        alignment = xlwt.Alignment() # Create Alignment
+        alignment.horz = xlwt.Alignment.HORZ_CENTER 
+        # May be: HORZ_GENERAL,HORZ_LEFT, HORZ_CENTER, HORZ_RIGHT, HORZ_FILLED, HORZ_JUSTIFIED,HORZ_CENTER_ACROSS_SEL, HORZ_DISTRIBUTED
+        alignment.vert = xlwt.Alignment.VERT_CENTER 
+        # May be: VERT_TOP,VERT_CENTER, VERT_BOTTOM, VERT_JUSTIFIED, VERT_DISTRIBUTED
+        style.alignment = alignment # Add Alignment to Style
         self.sheets[sheet_name]['sheet'].write_merge(self.sheets[sheet_name]['rows'],self.sheets[sheet_name]['rows'],\
                                                     0,length-1,\
-                                                    header_name)
+                                                    header_name,style)
         self.sheets[sheet_name]['rows'] += 1
     def create_sheet(self, sheet_name='sheet'):
         """Create new sheet
@@ -59,17 +70,26 @@ class XLSWriter(object):
             s = str(s)
         return s
 
-    def writerow(self, row, sheet_name='sheet',border=False):
+    def writerow(self, row, sheet_name='sheet',border=False,pattern=False):
+        style = xlwt.XFStyle()
         if border:
-            borders = mylib.xlwt.Borders()
+            borders = xlwt.Borders()
             borders.left = 1
             borders.right = 1
             borders.top = 1
             borders.bottom = 1
             borders.bottom_colour=0x3A    
          
-            style = mylib.xlwt.XFStyle()
             style.borders = borders 
+        if pattern:
+            pattern = xlwt.Pattern() # Create the Pattern
+            pattern.pattern = xlwt.Pattern.SOLID_PATTERN 
+            # May be: NO_PATTERN,SOLID_PATTERN, or 0x00 through 0x12
+            pattern.pattern_fore_colour = 22
+            # May be: 8 through 63. 0 = Black, 1 = White, 2 = Red, 3 = Green, 4 = Blue, 
+            # 5 = Yellow, 6 = Magenta, 7 = Cyan, 16 = Maroon, 17 = Dark Green, 18 = Dark Blue, 19 = Dark Yellow , 
+            # almost brown), 20 = Dark Magenta, 21 = Teal, 22 = Light Gray, 23 = Dark Gray,
+            style.pattern = pattern # Add Pattern to Style
           
         #sheet.write(0, 0, 'Firstname',style)
         if sheet_name not in self.sheets:
@@ -88,11 +108,11 @@ class XLSWriter(object):
         for ci, col in enumerate(row):
             if border:
                 self.sheets[sheet_name]['sheet'].write(self.sheets[sheet_name]['rows'],ci,\
-                                                   self.cell(col) if type(col) != mylib.xlwt.ExcelFormula.Formula else col,\
+                                                   self.cell(col) if type(col) != xlwt.ExcelFormula.Formula else col,\
                                                    style)
             else:
                 self.sheets[sheet_name]['sheet'].write(self.sheets[sheet_name]['rows'],ci,\
-                                                   self.cell(col) if type(col) != mylib.xlwt.ExcelFormula.Formula else col)
+                                                   self.cell(col) if type(col) != xlwt.ExcelFormula.Formula else col)
             #print self.sheets[sheet_name]['rows'],ci, self.cell(col) if type(col) != lib.xlwt.ExcelFormula.Formula else col
         self.sheets[sheet_name]['rows'] += 1
             
@@ -109,7 +129,7 @@ if __name__ == '__main__':
     xlswriter.add_image("python.bmg",0,0,sheet_name=u"基本信息")
     xlswriter.add_header(u"信息登记表",4,sheet_name=u"基本信息")
 
-    xlswriter.writerow(['姓名', '年龄', '电话', 'QQ'],sheet_name=u'基本信息',border=True)
+    xlswriter.writerow(['姓名', '年龄', '电话','QQ'],sheet_name=u'基本信息',border=True,pattern=True)
     xlswriter.writerow(['张三', '30', '12345678910', '123456789'], sheet_name=u'基本信息',border=True)
     xlswriter.writerow(['王五', '30', '13512345678', '123456789'], sheet_name=u'基本信息',border=True)
     
