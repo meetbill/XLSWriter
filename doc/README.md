@@ -5,16 +5,16 @@
 
 [1 简介 ](#1)  
 [2 xlwt实例 ](#2)  
-........[2.1 Formatting the Contents of a Cell](#2.1)
-........[2.2 Attributes of the Font Object](#2.2)
-........[2.3 Setting the Width of a Cell](#2.3)
-........[2.4 Entering a Date into a Cell](#2.4)
-........[2.5 Adding a Formula to a Cell](#2.5)
-........[2.6 Adding a Hyperlink to a Cell](#2.6)
-........[2.7 Merging Columns and Rows](#2.7)
-........[2.8 Setting the Alignment for the Contents of a Cell](#2.8)
-........[2.9 Adding Borders to a Cell](#2.9)
-........[2.10 Setting the Background Color of a Cell](#2.10)
+........[2.1 Formatting the Contents of a Cell](#2.1)</br>
+........[2.2 Attributes of the Font Object](#2.2)</br>
+........[2.3 Setting the Width of a Cell](#2.3)</br>
+........[2.4 Entering a Date into a Cell](#2.4)</br>
+........[2.5 Adding a Formula to a Cell](#2.5)</br>
+........[2.6 Adding a Hyperlink to a Cell](#2.6)</br>
+........[2.7 Merging Columns and Rows](#2.7)</br>
+........[2.8 Setting the Alignment for the Contents of a Cell](#2.8)</br>
+........[2.9 Adding Borders to a Cell](#2.9)</br>
+........[2.10 Setting the Background Color of a Cell](#2.10)</br>
 [3 版本发布](#3)
   
 ##【正文】
