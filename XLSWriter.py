@@ -25,9 +25,11 @@ class XLSWriter(object):
         if sheet_name not in self.sheets:
             # Create if does not exist
             self.create_sheet(sheet_name)
+        tall_style = xlwt.easyxf('font:height 780;')
+        self.sheets[sheet_name]['sheet'].row(self.sheets[sheet_name]['rows']).set_style(tall_style)
         self.sheets[sheet_name]['sheet'].insert_bitmap('python.bmp',\
-                                                       x,y,0,0,scale_x=0.1,\
-                                                       scale_y=0.1)
+                                                       x,y,0,0,scale_x=0.2,\
+                                                       scale_y=0.3)
         self.sheets[sheet_name]['rows'] += 1
     def add_header(self,header_name,length,sheet_name='sheet'):
         if sheet_name not in self.sheets:
@@ -70,6 +72,22 @@ class XLSWriter(object):
             s = str(s)
         return s
 
+    def setcol_width(self, row, sheet_name='sheet'):
+        if sheet_name not in self.sheets:
+            # Create if does not exist
+            self.create_sheet(sheet_name)
+    
+        if self.sheets[sheet_name]['rows'] == 0:
+            self.sheets[sheet_name]['header'] = row
+
+        if self.sheets[sheet_name]['rows'] >= 65534:
+            self.save()
+            # create new sheet to avoid being greater than 65535 lines
+            self.create_sheet(sheet_name)
+            if self.sheets[sheet_name]['header']:
+                self.writerow(self.sheets[sheet_name]['header'], sheet_name)
+        for ci, width in enumerate(row):
+            self.sheets[sheet_name]['sheet'].col(ci).width=256*width
     def writerow(self, row, sheet_name='sheet',border=False,pattern=False):
         style = xlwt.XFStyle()
         if border:
@@ -128,6 +146,7 @@ if __name__ == '__main__':
     xlswriter = XLSWriter('ceshi.xls')
     xlswriter.add_image("python.bmg",0,0,sheet_name=u"基本信息")
     xlswriter.add_header(u"信息登记表",4,sheet_name=u"基本信息")
+    xlswriter.setcol_width([20, 20, 20,20],sheet_name=u'基本信息')
 
     xlswriter.writerow(['姓名', '年龄', '电话','QQ'],sheet_name=u'基本信息',border=True,pattern=True)
     xlswriter.writerow(['张三', '30', '12345678910', '123456789'], sheet_name=u'基本信息',border=True)
