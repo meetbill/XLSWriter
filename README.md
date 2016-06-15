@@ -1,6 +1,7 @@
 # XLSWriter
 
 更方便的编写xls文件，比如导出报表的时候
+[xlwt_example](https://github.com/BillWang139967/XLSWriter/blob/master/doc/README.md)  
 
 ##【目录】
 ----
