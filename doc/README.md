@@ -15,6 +15,7 @@
 ........[2.8 Setting the Alignment for the Contents of a Cell](#2.8)</br>
 ........[2.9 Adding Borders to a Cell](#2.9)</br>
 ........[2.10 Setting the Background Color of a Cell](#2.10)</br>
+........[2.11 insert a image](#2.11)</br>
 [3 版本发布](#3)
   
 ##【正文】
@@ -71,6 +72,8 @@ font.shadow = ?
 ```
 
 <h3 name="2.3">2.3 Setting the Width of a Cell</h3>
+
+
 
 ```python
 import xltw
@@ -185,6 +188,20 @@ style = xlwt.XFStyle() # Create the Pattern
 style.pattern = pattern # Add Pattern to Style
 worksheet.write(0, 0, 'Cell Contents', style)
 workbook.save('Excel_Workbook.xls')
+```
+
+<h3 name="2.11">2.11 insert a image</h3>
+
+```python
+插入图像insert_bitmap()函数可以插入图像，
+insert_bitmap(img, x, y, x1, y1, scale_x=0.8, scale_y=1)
+img表示要插入的图像地址，
+x表示行
+y表示列
+x1表示相对原来位置向下偏移的像素
+y1表示相对原来位置向右偏移的像素
+scale_x表示相对原图宽的比例
+scale_y表示相对原图高的比例
 ```
 
 <h2 name="3">3 版本发布</h2>
