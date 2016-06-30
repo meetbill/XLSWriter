@@ -21,15 +21,30 @@ class XLSWriter(object):
         self.wbk = xlwt.Workbook()
         self.sheets = {}
         
-    def add_image(self,bmp_name='',x='',y='',sheet_name='sheet'):
+    def add_image(self,bmp_name='',x='',y='',length='',title_name='ceshi',sheet_name='sheet'):
         if sheet_name not in self.sheets:
             # Create if does not exist
             self.create_sheet(sheet_name)
-        tall_style = xlwt.easyxf('font:height 780;')
+        tall_style = xlwt.easyxf('font:height 820;')
         self.sheets[sheet_name]['sheet'].row(self.sheets[sheet_name]['rows']).set_style(tall_style)
         self.sheets[sheet_name]['sheet'].insert_bitmap('python.bmp',\
-                                                       x,y,0,0,scale_x=0.2,\
-                                                       scale_y=0.3)
+                                                       x,y,0,0,scale_x=0.33,\
+                                                       scale_y=0.60)
+        if length:
+            style = xlwt.XFStyle() # Create Style
+            font = xlwt.Font()
+            font.bold = True
+            font.height = 0x00FD
+            style.font = font
+            alignment = xlwt.Alignment() # Create Alignment
+            alignment.horz = xlwt.Alignment.HORZ_CENTER 
+            # May be: HORZ_GENERAL,HORZ_LEFT, HORZ_CENTER, HORZ_RIGHT, HORZ_FILLED, HORZ_JUSTIFIED,HORZ_CENTER_ACROSS_SEL, HORZ_DISTRIBUTED
+            alignment.vert = xlwt.Alignment.VERT_CENTER 
+            # May be: VERT_TOP,VERT_CENTER, VERT_BOTTOM, VERT_JUSTIFIED, VERT_DISTRIBUTED
+            style.alignment = alignment # Add Alignment to Style
+            self.sheets[sheet_name]['sheet'].write_merge(self.sheets[sheet_name]['rows'],self.sheets[sheet_name]['rows'],\
+                                                        1,length-1,\
+                                                        title_name,style)
         self.sheets[sheet_name]['rows'] += 1
     def add_header(self,header_name,length,sheet_name='sheet'):
         if sheet_name not in self.sheets:
@@ -144,7 +159,7 @@ class XLSWriter(object):
 if __name__ == '__main__':
     # test
     xlswriter = XLSWriter('ceshi.xls')
-    xlswriter.add_image("python.bmg",0,0,sheet_name=u"基本信息")
+    xlswriter.add_image("python.bmg",0,0,4,title_name=u"测试",sheet_name=u"基本信息")
     xlswriter.add_header(u"信息登记表",4,sheet_name=u"基本信息")
     xlswriter.setcol_width([20, 20, 20,20],sheet_name=u'基本信息')
 
