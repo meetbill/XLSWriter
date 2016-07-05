@@ -65,6 +65,25 @@ class XLSWriter(object):
                                                     0,length-1,\
                                                     header_name,style)
         self.sheets[sheet_name]['rows'] += 1
+    def add_remark(self,remark_name,length,sheet_name='sheet'):
+        if sheet_name not in self.sheets:
+            # Create if does not exist
+            self.create_sheet(sheet_name)
+        style = xlwt.XFStyle() # Create Style
+        font = xlwt.Font()
+        font.bold = False
+        font.height = 0x00EB
+        style.font = font
+        alignment = xlwt.Alignment() # Create Alignment
+        alignment.horz = xlwt.Alignment.HORZ_CENTER 
+        # May be: HORZ_GENERAL,HORZ_LEFT, HORZ_CENTER, HORZ_RIGHT, HORZ_FILLED, HORZ_JUSTIFIED,HORZ_CENTER_ACROSS_SEL, HORZ_DISTRIBUTED
+        alignment.vert = xlwt.Alignment.VERT_CENTER 
+        # May be: VERT_TOP,VERT_CENTER, VERT_BOTTOM, VERT_JUSTIFIED, VERT_DISTRIBUTED
+        style.alignment = alignment # Add Alignment to Style
+        self.sheets[sheet_name]['sheet'].write_merge(self.sheets[sheet_name]['rows'],self.sheets[sheet_name]['rows'],\
+                                                    0,length-1,\
+                                                    remark_name,style)
+        self.sheets[sheet_name]['rows'] += 1
     def create_sheet(self, sheet_name='sheet'):
         """Create new sheet
         """
