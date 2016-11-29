@@ -14,15 +14,12 @@ import mylib.xlwt as xlwt
 class XLSWriter(object):
     """A XLS writer that produces XLS files from unicode data.
     """
-    #{{{__init__
     def __init__(self, file, encoding='utf-8'):
         # must specify the encoding of the input data, utf-8 default.
         self.file = file
         self.encoding = encoding
         self.wbk = xlwt.Workbook()
         self.sheets = {}
-    #}}}
-    #{{{add_image
     def add_image(self,bmp_name='',x='',y='',length='',title_name='ceshi',sheet_name='sheet'):
         if sheet_name not in self.sheets:
             # Create if does not exist
@@ -48,8 +45,6 @@ class XLSWriter(object):
                                                         1,length-1,\
                                                         title_name,style)
         self.sheets[sheet_name]['rows'] += 1
-    #}}}
-    #{{{add_header
     def add_header(self,header_name,length,sheet_name='sheet'):
         if sheet_name not in self.sheets:
             # Create if does not exist
@@ -69,8 +64,6 @@ class XLSWriter(object):
                                                     0,length-1,\
                                                     header_name,style)
         self.sheets[sheet_name]['rows'] += 1
-    #}}}
-    #{{{add_remark
     def add_remark(self,remark_name,length,sheet_name='sheet'):
         if sheet_name not in self.sheets:
             # Create if does not exist
@@ -95,8 +88,6 @@ class XLSWriter(object):
         tall_style = xlwt.easyxf('font:height 820;')
         self.sheets[sheet_name]['sheet'].row(self.sheets[sheet_name]['rows']).set_style(tall_style)
         self.sheets[sheet_name]['rows'] += 1
-    #}}}
-    #{{{create_sheet
     def create_sheet(self, sheet_name='sheet'):
         """Create new sheet
         """
@@ -108,8 +99,6 @@ class XLSWriter(object):
         self.sheets[sheet_name]['index'] = sheet_index
         self.sheets[sheet_name]['sheet'] = self.wbk.add_sheet('%s%s' % (sheet_name, sheet_index if sheet_index else ''), cell_overwrite_ok=True)
         self.sheets[sheet_name]['rows'] = 0
-    #}}}
-    #{{{cell
     def cell(self, s):
         if isinstance(s, basestring):
             if not isinstance(s, unicode):
@@ -119,8 +108,6 @@ class XLSWriter(object):
         else:
             s = str(s)
         return s
-    #}}}
-    #{{{setcol_width
     def setcol_width(self, row, sheet_name='sheet'):
         if sheet_name not in self.sheets:
             # Create if does not exist
@@ -137,8 +124,6 @@ class XLSWriter(object):
                 self.writerow(self.sheets[sheet_name]['header'], sheet_name)
         for ci, width in enumerate(row):
             self.sheets[sheet_name]['sheet'].col(ci).width=256*width
-    #}}}
-    #{{{writerow
     def writerow(self, row, sheet_name='sheet',border=False,pattern_n=0):
         style = xlwt.XFStyle()
         if border:
@@ -184,16 +169,12 @@ class XLSWriter(object):
                                                    self.cell(col) if type(col) != xlwt.ExcelFormula.Formula else col)
             #print self.sheets[sheet_name]['rows'],ci, self.cell(col) if type(col) != lib.xlwt.ExcelFormula.Formula else col
         self.sheets[sheet_name]['rows'] += 1
-    #}}}
-    #{{{writerows
     def writerows(self, rows, sheet_name='sheet'):
         for row in rows:
             self.writerow(row, sheet_name)
-    #}}}
-    #{{{save
     def save(self):
         self.wbk.save(self.file)
-    #}}}
+
 if __name__ == '__main__':
     # test
     xlswriter = XLSWriter('ceshi.xls')
