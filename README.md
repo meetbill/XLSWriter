@@ -3,25 +3,26 @@
 以列表的形式对 excel 追加数据，更方便的编写 xls 文件的库文件，比如导出报表的时候
 
 <!-- vim-markdown-toc GFM -->
-* [XLSWriter 使用](#xlswriter-使用)
-    * [术语](#术语)
-    * [使用](#使用)
-* [使用 XLSWriter 的程序](#使用-xlswriter-的程序)
-* [版本发布](#版本发布)
-* [小额捐款](#小额捐款)
+
+* [1 XLSWriter 使用](#1-xlswriter-使用)
+    * [1.1 术语](#11-术语)
+    * [1.2 使用](#12-使用)
+* [2 使用 XLSWriter 的程序](#2-使用-xlswriter-的程序)
+* [3 版本发布](#3-版本发布)
+* [4 小额捐款](#4-小额捐款)
 
 <!-- vim-markdown-toc -->
 
-## XLSWriter 使用
-### 术语
+## 1 XLSWriter 使用
+### 1.1 术语
 
 ```
 行 Row
 列 Column
 ```
-### 使用
+### 1.2 使用
 ```
-#git clone https://github.com/BillWang139967/XLSWriter.git
+#git clone https://github.com/meetbill/XLSWriter.git
 #cd XLSWriter
 #python XLSWriter.py
 ```
@@ -29,17 +30,17 @@
 
 ![Screenshot](images/ceshi.jpg)
 
-[使用手册及二次开发](https://github.com/BillWang139967/XLSWriter/wiki)
+[使用手册及二次开发](https://github.com/meetbill/XLSWriter/wiki)
 
 
-## 使用 XLSWriter 的程序
+## 2 使用 XLSWriter 的程序
 
 在很多时候需要将结果输出到 excel 时会比较麻烦，以下程序中引用了 ***XLSWriter***
 
-* [zabbix_manager](https://github.com/BillWang139967/zabbix_manager.git)
+* [zabbix_manager](https://github.com/meetbill/zabbix_manager.git)
 
 
-## 版本发布
+## 3 版本发布
 
 * v1.0.4，2017-07-21</br>
   -------------------- 修改：big_head 函数可以设置 logo 是否显示</br>
@@ -54,7 +55,7 @@
 * v1.0.1，2016-02-13</br>
   -------------------- 新增：发布初始版本
 
-## 小额捐款
+## 4 小额捐款
 
 如果你觉得 XLSWriter 对你有帮助，可以对作者进行小额捐款（支付宝）
 
